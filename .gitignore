@@ -1,0 +1,17 @@
+# Build artifacts
+build/
+*.o
+*.out
+a.out
+
+# Data dumps
+*.pcm
+*.bin
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Compiled binaries
+rx
+tx
