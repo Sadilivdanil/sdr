@@ -54,6 +54,10 @@ sequenceDiagram
 * **Проблема:** Аналитический Python-скрипт прерывал работу с ошибкой: `FileNotFoundError: [Errno 2] No such file or directory: 'build/txdata.pcm'`.
 * **Причина:** Изначальный скрипт был жестко запрограммирован на чтение файла передатчика (`txdata.pcm`). Однако мой C++ код приемника сохранял дамп радиоэфира под логически корректным именем `rxdata.pcm`.
 * **Решение:** В коде `readPcm.py` переменная пути была исправлена на `name = "build/rxdata.pcm"`.
+  
+<p align="center">
+  <img src="white_noise.jpg" alt="Фотография белого шума" width="600"/>
+</p>
 
 ### 📉 3.2. Диагностика белого шума в радиоканале
 
@@ -114,6 +118,9 @@ plt.plot(envelope, color='green', linewidth=1.5)
 plt.grid(True, linestyle='--', alpha=0.7)
 plt.show()
 ```
+<p align="center">
+  <img src="graph.jpg" alt="Фотография графика" width="600"/>
+</p>
 
 ## ✅ Заключение
 
