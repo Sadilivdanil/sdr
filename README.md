@@ -75,7 +75,45 @@ $$
 Envelope = \sqrt{I^2 + Q^2}
 $$
 
+**Оптимизация Python-кода:**
+Для обработки массива из почти 40 миллионов значений (20000 буферов по 1920 сэмплов) оригинальный скрипт был переписан с использованием библиотеки NumPy. Векторизация вычислений позволила отрисовать график практически мгновенно.
 
+```python
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Указан верный путь к файлу приемника
+name = "build/rxdata.pcm"
+real = []
+imag = []
+
+# Чтение бинарного дампа эфира
+with open(name, "rb") as f:
+    index = 0
+    while (byte := f.read(2)):
+        val = int.from_bytes(byte, byteorder='little', signed=True)
+        if index % 2 == 0:
+            real.append(val)
+        else:
+            imag.append(val)
+        index += 1
+
+# Конвертация в массивы NumPy для векторизованных вычислений
+real_np = np.array(real)
+imag_np = np.array(imag)
+
+# Вычисление математической огибающей (амплитудной демодуляции)
+envelope = np.sqrt(real_np**2 + imag_np**2)
+
+# Построение графика
+plt.figure(figsize=(12, 6))
+plt.title("Огибающая принятого трапециевидного сигнала", fontsize=14)
+plt.xlabel("Номер сэмпла", fontsize=12)
+plt.ylabel("Амплитуда", fontsize=12)
+plt.plot(envelope, color='green', linewidth=1.5)
+plt.grid(True, linestyle='--', alpha=0.7)
+plt.show()
+```
 
 ## ✅ Заключение
 
