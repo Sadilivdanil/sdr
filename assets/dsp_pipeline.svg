@@ -1,0 +1,104 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 350" width="100%" font-family="-apple-system, BlinkMacSystemFont, &#39;Segoe UI&#39;, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#58a6ff" />
+    </marker>
+    <marker id="arrow-purp" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#bc8cff" />
+    </marker>
+    <linearGradient id="boxBg" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#161b22" />
+      <stop offset="100%" stop-color="#21262d" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="100%" height="100%" fill="#0d1117" rx="10" />
+
+  <!-- Title -->
+  <text x="450" y="40" fill="#c9d1d9" font-size="22" font-weight="bold" text-anchor="middle">DSP Pipeline Architecture (TX / RX)</text>
+  <line x1="250" y1="55" x2="650" y2="55" stroke="#30363d" stroke-width="2" />
+
+  <!-- TX PATH -->
+  <g stroke="#30363d" stroke-width="2" fill="url(#boxBg)">
+    <!-- TX Nodes -->
+    <rect x="50" y="90" width="140" height="60" rx="8" />
+    <rect x="230" y="90" width="140" height="60" rx="8" />
+    <rect x="410" y="90" width="140" height="60" rx="8" />
+    <rect x="590" y="90" width="140" height="60" rx="8" />
+    
+    <!-- TX Antenna / Output -->
+    <rect x="770" y="90" width="90" height="60" rx="8" stroke="#2ea043" fill="#238636" fill-opacity="0.15" />
+  </g>
+
+  <!-- TX Texts -->
+  <g fill="#c9d1d9" font-size="14" text-anchor="middle">
+    <text x="120" y="115" font-weight="bold">1. Bits Gen</text>
+    <text x="120" y="135" font-size="12" fill="#8b949e">"Hello Pluto!"</text>
+
+    <text x="300" y="115" font-weight="bold">2. BPSK Mod</text>
+    <text x="300" y="135" font-size="12" fill="#8b949e">Amp = ±1500</text>
+
+    <text x="480" y="115" font-weight="bold">3. Upsampling</text>
+    <text x="480" y="135" font-size="12" fill="#8b949e">SPS = 10 (Zeros)</text>
+
+    <text x="660" y="115" font-weight="bold">4. Convolution</text>
+    <text x="660" y="135" font-size="12" fill="#8b949e">Rect Window h[k]</text>
+
+    <text x="815" y="115" fill="#7ee787" font-weight="bold">TX BUFF</text>
+    <text x="815" y="135" font-size="12" fill="#7ee787">1920 samples</text>
+  </g>
+
+  <!-- TX Arrows -->
+  <g stroke="#58a6ff" stroke-width="2" fill="none" marker-end="url(#arrow)">
+    <path d="M 190 120 L 220 120" />
+    <path d="M 370 120 L 400 120" />
+    <path d="M 550 120 L 580 120" />
+    <path d="M 730 120 L 760 120" />
+  </g>
+
+  <!-- Export Node (message.h) -->
+  <rect x="755" y="190" width="120" height="40" rx="5" fill="#21262d" stroke="#bc8cff" stroke-width="2" />
+  <text x="815" y="215" fill="#d2a8ff" font-size="14" font-weight="bold" text-anchor="middle">message.h</text>
+  <path d="M 815 150 L 815 180" stroke="#bc8cff" stroke-width="2" fill="none" marker-end="url(#arrow-purp)" />
+  <text x="870" y="170" fill="#8b949e" font-size="11">C-Array</text>
+
+  <!-- Divider -->
+  <path d="M 50 190 L 720 190" stroke="#30363d" stroke-width="2" stroke-dasharray="5,5" />
+  <text x="80" y="185" fill="#8b949e" font-size="12">Air / USB</text>
+
+  <!-- RX PATH -->
+  <g stroke="#30363d" stroke-width="2" fill="url(#boxBg)">
+    <!-- RX Nodes -->
+    <rect x="590" y="230" width="140" height="60" rx="8" />
+    <rect x="410" y="230" width="140" height="60" rx="8" />
+    <rect x="230" y="230" width="140" height="60" rx="8" />
+    
+    <!-- Python Output -->
+    <rect x="50" y="230" width="140" height="60" rx="8" stroke="#388bfd" fill="#1f6feb" fill-opacity="0.15" />
+  </g>
+
+  <!-- RX Texts -->
+  <g fill="#c9d1d9" font-size="14" text-anchor="middle">
+    <text x="660" y="255" font-weight="bold">5. RX Stream</text>
+    <text x="660" y="275" font-size="12" fill="#8b949e">txdata.pcm</text>
+
+    <text x="480" y="255" font-weight="bold">6. Sync Search</text>
+    <text x="480" y="275" font-size="12" fill="#8b949e">Magnitude |z|</text>
+
+    <text x="300" y="255" font-weight="bold">7. Decimation</text>
+    <text x="300" y="275" font-size="12" fill="#8b949e">10 Shift Phases</text>
+
+    <text x="120" y="255" fill="#79c0ff" font-weight="bold">8. Eye / Const</text>
+    <text x="120" y="275" font-size="12" fill="#79c0ff">Python Plot</text>
+  </g>
+
+  <!-- RX Arrows -->
+  <g stroke="#58a6ff" stroke-width="2" fill="none" marker-end="url(#arrow)">
+    <!-- From TX to RX Stream -->
+    <path d="M 660 150 L 660 220" />
+    <path d="M 590 260 L 560 260" />
+    <path d="M 410 260 L 380 260" />
+    <path d="M 230 260 L 200 260" />
+  </g>
+</svg>

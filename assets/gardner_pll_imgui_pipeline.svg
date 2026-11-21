@@ -1,0 +1,103 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 440" width="100%" font-family="-apple-system, BlinkMacSystemFont, &#39;Segoe UI&#39;, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arrow-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#58a6ff" />
+    </marker>
+    <marker id="arrow-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#3fb950" />
+    </marker>
+    <marker id="arrow-purp" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#bc8cff" />
+    </marker>
+    <linearGradient id="boxBg" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#161b22" />
+      <stop offset="100%" stop-color="#21262d" />
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="100%" height="100%" fill="#0d1117" rx="10" />
+
+  <!-- Title -->
+  <text x="480" y="38" fill="#c9d1d9" font-size="20" font-weight="bold" text-anchor="middle">Closed-Loop Gardner CDR &amp; Dear ImGui Real-Time Architecture</text>
+  <line x1="180" y1="52" x2="780" y2="52" stroke="#30363d" stroke-width="2" />
+
+  <!-- ROW 1: DSP TIMING RECOVERY LOOP -->
+  <g stroke="#30363d" stroke-width="2" fill="url(#boxBg)">
+    <rect x="40" y="76" width="150" height="64" rx="8" />
+    <rect x="235" y="76" width="165" height="64" rx="8" />
+    <rect x="445" y="76" width="185" height="64" rx="8" stroke="#2ea043" fill="#238636" fill-opacity="0.18" />
+    <rect x="685" y="76" width="235" height="64" rx="8" stroke="#388bfd" fill="#1f6feb" fill-opacity="0.15" />
+  </g>
+
+  <g fill="#c9d1d9" font-size="13" text-anchor="middle">
+    <text x="115" y="102" font-weight="bold">1. ADALM-Pluto RX</text>
+    <text x="115" y="122" font-size="11" fill="#8b949e">Live Stream / PCM</text>
+
+    <text x="317" y="102" font-weight="bold">2. Matched Filter</text>
+    <text x="317" y="122" font-size="11" fill="#8b949e">Rect Conv (SPS = 10)</text>
+
+    <text x="537" y="102" fill="#7ee787" font-weight="bold">3. Farrow Interpolator</text>
+    <text x="537" y="122" font-size="11" fill="#7ee787">Parabolic (mu in [0, 1))</text>
+
+    <text x="802" y="102" fill="#79c0ff" font-weight="bold">4. ImPlot Visualization</text>
+    <text x="802" y="122" font-size="11" fill="#79c0ff">Time / Polar / Waterfall</text>
+  </g>
+
+  <!-- Forward Arrows Row 1 -->
+  <g stroke="#58a6ff" stroke-width="2" fill="none" marker-end="url(#arrow-blue)">
+    <path d="M 190 108 L 227 108" />
+    <path d="M 400 108 L 437 108" />
+  </g>
+  <path d="M 630 108 L 677 108" stroke="#3fb950" stroke-width="2" fill="none" marker-end="url(#arrow-green)" />
+
+  <!-- ROW 2: FEEDBACK TIMING ERROR DETECTOR & PI LOOP FILTER -->
+  <g stroke="#30363d" stroke-width="2" fill="url(#boxBg)">
+    <rect x="445" y="185" width="185" height="66" rx="8" stroke="#bc8cff" />
+    <rect x="235" y="185" width="165" height="66" rx="8" stroke="#58a6ff" />
+  </g>
+
+  <g fill="#c9d1d9" font-size="13" text-anchor="middle">
+    <text x="537" y="211" fill="#d2a8ff" font-weight="bold">5. Gardner TED</text>
+    <text x="537" y="231" font-size="11" fill="#8b949e">Re{(y_curr - y_prev)* y_mid}</text>
+
+    <text x="317" y="211" fill="#79c0ff" font-weight="bold">6. PI Loop Filter</text>
+    <text x="317" y="231" font-size="11" fill="#8b949e">Kp = 0.40, Ki = 0.02</text>
+  </g>
+
+  <!-- Feedback Arrows -->
+  <path d="M 537 140 L 537 177" stroke="#bc8cff" stroke-width="2" fill="none" marker-end="url(#arrow-purp)" />
+  <text x="595" y="164" fill="#d2a8ff" font-size="11" text-anchor="middle">curr, mid, prev</text>
+
+  <path d="M 445 218 L 408 218" stroke="#bc8cff" stroke-width="2" fill="none" marker-end="url(#arrow-purp)" />
+
+  <path d="M 317 185 L 317 160 L 490 160 L 490 148" stroke="#58a6ff" stroke-width="2" fill="none" marker-end="url(#arrow-blue)" />
+  <text x="403" y="154" fill="#79c0ff" font-size="11" text-anchor="middle">pos += SPS - delta</text>
+
+  <!-- Divider -->
+  <path d="M 40 276 L 920 276" stroke="#30363d" stroke-width="2" stroke-dasharray="5,5" />
+
+  <!-- ROW 3: EYE / TRIANGULAR PULSE EXPLANATION & GUI CONTROLS -->
+  <rect x="40" y="294" width="440" height="126" rx="8" fill="#161b22" stroke="#30363d" stroke-width="1.5" />
+  <text x="260" y="315" fill="#c9d1d9" font-size="13" font-weight="bold" text-anchor="middle">Optimal Strobe Selection (Zero ISI)</text>
+  <line x1="65" y1="368" x2="320" y2="368" stroke="#484f58" stroke-width="1" stroke-dasharray="4,4" />
+  <path d="M 75 368 L 125 330 L 175 368 L 225 405 L 275 368 L 310 340" fill="none" stroke="#58a6ff" stroke-width="2.5" />
+  <circle cx="125" cy="330" r="5" fill="#3fb950" />
+  <text x="125" y="323" fill="#7ee787" font-size="10" text-anchor="middle">y_prev</text>
+  <circle cx="175" cy="368" r="5" fill="#d2a8ff" />
+  <text x="175" y="357" fill="#d2a8ff" font-size="10" text-anchor="middle">y_mid = 0</text>
+  <circle cx="225" cy="405" r="5" fill="#3fb950" />
+  <text x="225" y="416" fill="#7ee787" font-size="10" text-anchor="middle">y_curr</text>
+  <text x="398" y="352" fill="#8b949e" font-size="11" text-anchor="middle">e[k] = 0 at symbol peak</text>
+  <text x="398" y="372" fill="#7ee787" font-size="11" text-anchor="middle">Inner rings collapse</text>
+  <text x="398" y="392" fill="#8b949e" font-size="11" text-anchor="middle">static phase_offset</text>
+
+  <rect x="500" y="294" width="420" height="126" rx="8" fill="#161b22" stroke="#30363d" stroke-width="1.5" />
+  <text x="710" y="315" fill="#c9d1d9" font-size="13" font-weight="bold" text-anchor="middle">Dear ImGui Dashboard Controls (dev/gui.cpp)</text>
+  <g fill="#8b949e" font-size="11" text-anchor="start">
+    <text x="520" y="338">- Live SDR (usb: / custom IP) &amp; Manual PCM File Mode</text>
+    <text x="520" y="358">- TX / RX / Duplex + Separate Stop TX Button</text>
+    <text x="520" y="378">- Playback Speed (0.05x - 2.00x) &amp; Waterfall Scrubbing</text>
+    <text x="520" y="398">- Double-Click Numeric Input &amp; Auto/Manual CDR Toggle</text>
+  </g>
+</svg>
